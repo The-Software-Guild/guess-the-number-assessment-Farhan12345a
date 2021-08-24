@@ -1,0 +1,26 @@
+DROP DATABASE IF EXISTS GuessTheNumberDBTest;
+CREATE DATABASE GuessTheNumberDBTest;
+USE GuessTheNumberDBTest;
+
+CREATE TABLE game(
+	game_id INT AUTO_INCREMENT,
+    answer VARCHAR(10) ,
+    /**Might have to change datatype**/
+    status VARCHAR(10) ,
+    CONSTRAINT pk_game_id
+        PRIMARY KEY (game_id)
+);
+    
+
+CREATE TABLE round(
+	round_id INT AUTO_INCREMENT,
+	game_id INT NOT NULL,
+    guess_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    guess VARCHAR(10) ,
+    result VARCHAR(10),
+    CONSTRAINT pk_round_id
+        PRIMARY KEY (round_id),
+	CONSTRAINT fk_game_id 
+    	FOREIGN KEY (game_id)
+    	REFERENCES game(game_id)
+);

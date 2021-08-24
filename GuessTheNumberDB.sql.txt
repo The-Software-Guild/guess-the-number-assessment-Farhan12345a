@@ -1,0 +1,50 @@
+DROP DATABASE IF EXISTS GuessTheNumberDB;
+CREATE DATABASE GuessTheNumberDB;
+USE GuessTheNumberDB;
+
+CREATE TABLE GAME(
+    game_id INT AUTO_INCREMENT,
+    answer VARCHAR(10) NOT NULL,
+    /**Might have to change datatype**/
+    status VARCHAR(10) NOT NULL,
+    CONSTRAINT pk_game_id
+        PRIMARY KEY (game_id)
+);
+    
+
+CREATE TABLE ROUND(
+    round_id INT AUTO_INCREMENT,
+    game_id INT NOT NULL,
+    guess_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    guess VARCHAR(10) NOT NULL,
+    result VARCHAR(10) NOT NULL,
+    CONSTRAINT pk_round_id
+        PRIMARY KEY (round_id),
+	CONSTRAINT fk_game_id 
+    	FOREIGN KEY (game_id)
+    	REFERENCES game(game_id)
+);
+
+/**Inserting Default Data**/
+INSERT INTO game VALUES
+	(1, "3290", false),
+	(2, "9807", true),
+	(3, "1290", true),
+        (4, "4352", true),
+	(5, "9876", true),
+	(6, "1254", false);
+
+INSERT INTO round VALUES 
+	/****right guess**/
+    (1, 1, "2021-08-10 06:20:11", "1254", "e:4:p:0"),
+    (2, 2, "2021-04-11 01:47:31", "5181", "e:0:p:0"),
+    /****right guess**/
+    (3, 3, "2021-05-14 21:36:59", "9876", "e:4:p:0"),
+    /****right guess**/
+    (4, 4, "2021-01-31 02:03:01", "1254", "e:4:p:0"),
+    (5, 5, "2021-10-01 10:55:02", "1259", "e:1:p:1"),
+    /****right guess**/
+    (6, 6, "2021-08-04 03:20:49", "4352", "e:4:p:0");
+
+SELECT * from game;
+SELECT * from round;
